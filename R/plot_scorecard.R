@@ -37,13 +37,15 @@ tiers <- tibble(
   header = c("Proven", "Thin edge", "No edge", "Never market-tested", "Legacy"),
   blurb  = c("a significant win over closing prices, across seasons",
              "ahead of the market by a small or insignificant margin",
-             "tested against market prices and lost",
+             "tested: the market already priced in what it knew",
              "no market, no price history, or results pending",
              "retired"),
-  fill   = c("#5fd08a", "#e8b93b", "#e07a5f", "#1d232c", BG),
+  # "No edge" is a finding, not an error, so it gets a neutral slate rather than
+  # an alarm red; the row label carries the meaning either way.
+  fill   = c("#5fd08a", "#e8b93b", "#7b98b8", "#1d232c", BG),
   ink    = c(BG,        BG,        BG,        INK2,      MUTED),
-  edge   = c("#5fd08a", "#e8b93b", "#e07a5f", LINE,      LINE),
-  accent = c("#5fd08a", "#e8b93b", "#e07a5f", INK2,      MUTED)
+  edge   = c("#5fd08a", "#e8b93b", "#7b98b8", LINE,      LINE),
+  accent = c("#5fd08a", "#e8b93b", "#7b98b8", INK2,      MUTED)
 )
 
 # Sanity check: every model must land in a known tier, or it silently vanishes.
@@ -94,12 +96,11 @@ n_lost   <- sum(models$tier == "no edge")
 n_thin   <- sum(models$tier == "thin edge")
 n_proven <- sum(models$tier == "proven")
 
-title_txt <- sprintf("%d forecasting models, %d tested against market prices",
-                     n_all, n_tested)
+title_txt <- "I grade my forecasts against the market, the hardest benchmark there is"
 subtitle_txt <- sprintf(paste0(
-  "%d lost to the market, %d came out slightly ahead, and %s proven an edge yet. ",
-  "Each tile is one model. Status as of November 2026."),
-  n_lost, n_thin, if (n_proven == 0) "none has" else paste(n_proven, "have"))
+  "%d models. %d had a market to test against: %d came out slightly ahead, %d couldn't beat it, ",
+  "and %s proven yet.\nEach tile is one model. Status as of November 2026."),
+  n_all, n_tested, n_thin, n_lost, if (n_proven == 0) "none is" else paste(n_proven, "are"))
 
 caption_txt <- paste0(
   "Market test: the model's out-of-sample forecasts priced against real sportsbook prices ",
@@ -151,7 +152,7 @@ p <- ggplot() +
   )
 
 dir.create("assets", showWarnings = FALSE)
-ragg::agg_png("assets/scorecard.png", width = 1600, height = 1240, res = 150,
+ragg::agg_png("assets/scorecard.png", width = 1600, height = 1270, res = 150,
               background = BG)
 print(p)
 invisible(dev.off())

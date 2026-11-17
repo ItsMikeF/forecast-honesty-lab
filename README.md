@@ -1,10 +1,12 @@
 # Forecast honesty lab
 
-**34 forecasting models. 18 tested against real market prices. 15 lost.**
+**I grade my forecasts against the market, the hardest benchmark there is.** Of 34 forecasting
+models, 18 had a market to test against: 3 came out slightly ahead, 15 couldn't beat it, and none is
+proven yet.
 
-This repo is the scorecard for every forecasting model I've documented: how each one did when its
-forecasts were priced against the market, losers included. It also covers the eight lessons the
-losers taught me about testing a forecast honestly.
+This repo is the scorecard for every forecasting model I've documented, with every result
+published, misses included. It also covers the eight lessons those tests taught me about checking
+a forecast honestly.
 
 ![Scorecard: 34 forecasting models grouped by market-test result. 0 proven, 3 thin edge, 15 no edge, 15 never market-tested, 1 legacy.](assets/scorecard.png)
 
@@ -42,7 +44,7 @@ forecast it would replace, not a moving average.
 | **MLB line movement** | Which way a game's price moves from open to close | 668 games, 2023–26, one forecast per day | +2.4% (t 0.65); beat the closing price on 79% of games (+2.40 pts) | Ranking beat thresholds: taking only the top forecast each day roughly doubled the closing-price gain (+1.27 → +2.40 pts). |
 | **Tennis point model** | Match winners, built up from serve and return points (point → game → set → match) | 24,368 matches, 2013–25; 18,161 forecasts at a 3% edge | +1.9% at the best closing price (t 1.65, not significant) | A Masters 1000 slice reads +11.2% (t 4.97), but it was found by slicing, so the 2026 season decides it. |
 
-### No edge (15): tested against market prices and lost
+### No edge (15): tested, and the market already priced in what they knew
 
 | Model | Forecasts | Tested on | Result | What it taught me |
 |---|---|---|---|---|
@@ -87,7 +89,7 @@ forecast it would replace, not a moving average.
 </details>
 <!-- scorecard:end -->
 
-## What the losers taught me
+## What the tests taught me
 
 ### 1. The model has to be as-of, not just the data
 My MLB plate-appearance model first tested at **+5.97% (t 2.52)**, which would have been my first
@@ -103,7 +105,8 @@ good calibration can itself be a symptom of a leak.
 My NFL team-totals model is **8.3% more accurate** than a three-year baseline, on all nine stats it
 forecasts. Its correlation with actual points is still **0.321, against the market's 0.463**.
 
-My World Series simulator got more accurate after a genuine roster fix, and it still lost. A model
+My World Series simulator got more accurate after a genuine roster fix, and it still couldn't beat
+the market. A model
 can beat every baseline you choose and still know nothing the market doesn't.
 
 ### 3. Every new feature has to beat random noise

@@ -42,7 +42,7 @@ stopifnot(sum(models$tier == "proven") == 0)
 block <- paste0(
   "### Thin edge (", nrow(thin), "): ahead of the market, not yet proven\n\n",
   md_table(thin, "Caveat"), "\n\n",
-  "### No edge (", nrow(lost), "): tested against market prices and lost\n\n",
+  "### No edge (", nrow(lost), "): tested, and the market already priced in what they knew\n\n",
   md_table(lost, "What it taught me"), "\n\n",
   "<details>\n<summary><b>Never market-tested (", sum(untested$tier == "untested"),
   ") and retired (", sum(untested$tier == "legacy"), ")</b>: ",
